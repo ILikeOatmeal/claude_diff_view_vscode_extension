@@ -46,6 +46,7 @@ const commandsRegistry_1 = require("./commands/commandsRegistry");
 const navigationManager_1 = require("./diff/navigationManager");
 const navBarPanel_1 = require("./views/navBarPanel");
 const agentChangesPanel_1 = require("./views/agentChangesPanel");
+const pendingFileDecorations_1 = require("./views/pendingFileDecorations");
 const terminalPanel_1 = require("./terminal/terminalPanel");
 const LOG_PREFIX = '[ai-cli-diff-view]';
 const AGENT_MODE_TABS_STATE_KEY = 'ai-cli-diff-view.agentMode.editorTabsState';
@@ -91,6 +92,8 @@ async function activateExtension(context) {
         supportsMultipleEditorsPerDocument: false,
     }));
     debugLog('activate:custom editor provider registered');
+    const pendingFileDecorations = new pendingFileDecorations_1.PendingFileDecorationProvider(diffManager);
+    context.subscriptions.push(pendingFileDecorations, vscode.window.registerFileDecorationProvider(pendingFileDecorations));
     const navBarPanel = new navBarPanel_1.NavBarPanel(context.extensionUri);
     context.subscriptions.push(vscode.window.registerWebviewViewProvider(navBarPanel_1.NavBarPanel.viewType, navBarPanel));
     debugLog('activate:navigation webview provider registered');

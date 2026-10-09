@@ -494,6 +494,7 @@ export class DiffManager {
 
     this.disposeAll();
     await this.store.clear();
+    this._onDidChangeDiffs.fire();
 
     if (activeDiffPath) {
       await this.reopenAsTextEditor(activeDiffPath);

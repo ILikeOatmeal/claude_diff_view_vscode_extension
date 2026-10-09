@@ -107,6 +107,18 @@
         }
       }
     },
+    "colors": [
+      {
+        "id": "aiCliDiffView.pendingFileForeground",
+        "description": "Explorer color for files with pending AI changes.",
+        "defaults": {
+          "dark": "charts.purple",
+          "light": "charts.purple",
+          "highContrast": "charts.purple",
+          "highContrastLight": "charts.purple"
+        }
+      }
+    ],
     "customEditors": [
       {
         "viewType": "ai-cli-diff-view.diffEditor",

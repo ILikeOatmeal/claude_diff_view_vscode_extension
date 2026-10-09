@@ -10,6 +10,7 @@ import { registerAllCommands } from './commands/commandsRegistry';
 import { NavigationManager } from './diff/navigationManager';
 import { NavBarPanel } from './views/navBarPanel';
 import { AgentChangesPanel } from './views/agentChangesPanel';
+import { PendingFileDecorationProvider } from './views/pendingFileDecorations';
 import { TerminalPanelProvider } from './terminal/terminalPanel';
 
 const LOG_PREFIX = '[ai-cli-diff-view]';
@@ -78,6 +79,12 @@ async function activateExtension(context: vscode.ExtensionContext): Promise<void
     )
   );
   debugLog('activate:custom editor provider registered');
+
+  const pendingFileDecorations = new PendingFileDecorationProvider(diffManager);
+  context.subscriptions.push(
+    pendingFileDecorations,
+    vscode.window.registerFileDecorationProvider(pendingFileDecorations),
+  );
 
   const navBarPanel = new NavBarPanel(context.extensionUri);
   context.subscriptions.push(
